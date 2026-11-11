@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-def download_and_load_gpt2(model_size, models_dir):
+def download_gpt2(model_size, models_dir):
     # Validate model size
     allowed_sizes = ("124M", "355M", "774M", "1558M")
     if model_size not in allowed_sizes:
@@ -28,13 +28,6 @@ def download_and_load_gpt2(model_size, models_dir):
         download_file(file_url, file_path)
 
     ## We have reached here until now ---> we have downloaded the files on our local machine.
-
-    # Load settings and params
-    tf_ckpt_path = tf.train.latest_checkpoint(model_dir)
-    settings = json.load(open(os.path.join(model_dir, "hparams.json")))
-    params = load_gpt2_params_from_tf_ckpt(tf_ckpt_path, settings)
-
-    return settings, params
 
 def download_file(url, destination):
     try:
